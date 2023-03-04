@@ -41,6 +41,7 @@ stages:
         script: |
           cd Deployment/terraform-infra;
           terraform init; terraform plan
+          
 - stage: Apply
   displayName: Terraform Apply
   jobs:
