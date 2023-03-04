@@ -1,6 +1,14 @@
-FROM java
-ADD ./target/myproject-0.0.1-SNAPSHOT.jar /myproject-0.0.1-SNAPSHOT.jar
-ADD ./run.sh /run.sh
-RUN chmod a+x /run.sh
+#  Base image
+FROM thothbot/alpine-jre8:latest
+
+# Add Target JAR file
+COPY target/myproject-0.0.1-SNAPSHOT.jar ./
+
+# Expose ports
 EXPOSE 8080:8080
-CMD /run.sh
+
+# Modify Users
+USER 1001
+
+# Entry point for Application
+RUN java -jar myproject-0.0.1-SNAPSHOT.jar
