@@ -1,0 +1,15 @@
+#cloud-config
+package_upgrade: true
+
+packages:
+    - docker.io
+
+# create the docker group
+groups:
+    - docker
+
+# assign a VM's default user
+users:
+    - default
+    - name: adminuser
+      groups: docker
