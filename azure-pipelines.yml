@@ -47,7 +47,7 @@ stages:
         displayName: Upload file to destination
         inputs:
           targetType: 'inline'
-          script: 'scp helloworld.tar adminuser@20.124.218.57:/tmp'
+          script: 'scp helloworld.tar adminuser@20.124.218.57:/tmp;'
       - task: Bash@3
         displayName: Deploy docker
         inputs:
@@ -55,5 +55,5 @@ stages:
           script: |
             ssh adminuser@20.124.218.57;
             docker load < /tmp/helloworld.tar; 
-            docker run -it -p 8080:8080 helloworld:v1 &
+            docker run -it -p 8080:8080 helloworld:v1 &;
 
