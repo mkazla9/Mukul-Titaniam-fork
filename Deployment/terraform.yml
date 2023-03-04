@@ -59,4 +59,4 @@ stages:
                 targetType: 'inline'
                 script: |
                   cd Deployment/terraform-infra;
-                  terraform init; terraform plan          
+                  terraform init; terraform apply --auto-approve          
