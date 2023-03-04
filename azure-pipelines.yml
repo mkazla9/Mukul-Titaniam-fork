@@ -32,30 +32,21 @@ stages:
           addPipelineData: false
           addBaseImageData: false
 
-- stage: CreateInfra
-  displayName: Create Infrastructure
+- stage: DeployDocker
+  displayName: Deploy jar file to virtual machine
   jobs:
-  - job: Terraform
-    displayName: TF init and apply
+  - job: Deployment
+    displayName: deploy docker
     steps:
       - task: Bash@3
+        displayName: Upload docker file to machine
         inputs:
           targetType: 'inline'
-          script: |
-            cd Deployment/terraform-infra;
-            terraform init; terraform apply --auto-approve
+          script: 'docker save -o helloworld.tar helloworld:v1'
+      - task: Bash@3
+        displayName: Upload file to destination
+        inputs:
+          targetType: 'inline'
+          script: 'ssh ssh adminuser@20.124.218.57 tar czf - helloworld.tar > /tmp/helloworld.tar;'
 
-# - stage: DeployDocker
-#   displayName: Deploy jar file to virtual machine
-#   jobs:
-#   - job: Terraform
-#     displayName: deploy docker
-#     steps:
-#       - task: Bash@3
-#         inputs:
-#           targetType: 'inline'
-#           script: |
-#             cd Deployment/terraform-infra;
-#             terraform init; terraform apply --auto-approve
-#   condition: (or(failed()), succeeded())
 
