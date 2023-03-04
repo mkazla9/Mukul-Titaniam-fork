@@ -14,8 +14,8 @@ variables:
   - group: Azure
 
 stages:
-- stage: Build
-  displayName: Build Java project
+- stage: TerraformInit
+  displayName: Terraform init and plan
   jobs:
   - job: Authentication
     displayName: Authenticate to Azure
@@ -41,3 +41,21 @@ stages:
         script: |
           cd Deployment/terraform-infra;
           terraform init; terraform plan
+- stage: Apply
+  displayName: Terraform Apply
+  jobs:
+    - deployment: TerraformApply
+      displayName: 'Terraform Apply'
+      environment: dev
+      timeoutInMinutes: 120
+      strategy:
+        runOnce:
+          deploy:
+            steps:  
+            - task: Bash@3
+            displayName: Terraform init and plan
+            inputs:
+              targetType: 'inline'
+              script: |
+                cd Deployment/terraform-infra;
+                terraform init; terraform plan          
