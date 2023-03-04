@@ -31,7 +31,7 @@ stages:
   displayName: Create Infrastructure
   jobs:
   - job: Terraform
-    displayName: TF nit and plan
+    displayName: TF init and plan
     steps:
       - task: Bash@3
         inputs:
