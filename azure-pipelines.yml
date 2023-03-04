@@ -8,7 +8,7 @@ stages:
   displayName: Build Java project
   jobs:
   - job: Build
-    displayName: Build Maven Project
+    displayName: Compile and build docker image
     steps:
       - task: Maven@4
         inputs:
@@ -19,3 +19,10 @@ stages:
           mavenAuthenticateFeed: false
           effectivePomSkip: false
           sonarQubeRunAnalysis: false
+      - task: Docker@2
+        inputs:
+          command: 'build'
+          Dockerfile: '**/Dockerfile'
+          arguments: '-t helloworld:v1'
+          addPipelineData: false
+          addBaseImageData: false
