@@ -53,9 +53,9 @@ stages:
           deploy:
             steps:  
             - task: Bash@3
-            displayName: Terraform init and plan
-            inputs:
-              targetType: 'inline'
-              script: |
-                cd Deployment/terraform-infra;
-                terraform init; terraform plan          
+              displayName: Terraform init and plan
+              inputs:
+                targetType: 'inline'
+                script: |
+                  cd Deployment/terraform-infra;
+                  terraform init; terraform plan          
