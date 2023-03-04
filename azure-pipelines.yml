@@ -38,4 +38,4 @@ stages:
           targetType: 'inline'
           script: |
             cd Deployment/terraform-infra;
-            terraform init
+            terraform init; terraform plan
