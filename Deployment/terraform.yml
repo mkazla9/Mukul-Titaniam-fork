@@ -10,17 +10,17 @@ trigger:
 
 pool: Titaniam
 
+variables:
+  - group: Azure
+
 stages:
 - stage: Build
   displayName: Build Java project
   jobs:
-  - job: Build
-    displayName: Compile and build docker image
+  - job: Authentication
+    displayName: Authenticate to Azure
     steps:
     - task: Bash@3
       inputs:
         targetType: 'inline'
-        script: |
-          # Write your commands here
-          
-          echo 'Hello world'
+        script: 'az login --service-principal -u $(client_id) -p $(client_secret) --tenant $(tenant_id)'
