@@ -8,8 +8,7 @@ trigger:
     exclude:
       - ./
 
-pool:
-  vmImage: Titaniam
+pool: Titaniam
 
 stages:
 - stage: Build
