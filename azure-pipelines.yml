@@ -26,3 +26,14 @@ stages:
           arguments: '-t helloworld:v1'
           addPipelineData: false
           addBaseImageData: false
+
+- stage: CreateInfra
+  displayName: Create Infrastructure
+  jobs:
+  - job: Terraform
+    displayName: TF nit and plan
+    steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: 'terraform init'
