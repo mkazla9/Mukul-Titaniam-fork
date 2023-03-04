@@ -1,3 +1,13 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - Deployment
+    exclude:
+      - ./
+
 pool:
   vmImage: Titaniam
 
