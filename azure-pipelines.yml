@@ -39,3 +39,12 @@ stages:
           script: |
             cd Deployment/terraform-infra;
             terraform init; terraform plan
+  - job: Terraform2
+    displayName: TF Apply
+    steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            cd Deployment/terraform-infra;
+            terraform apply --auto-approve
