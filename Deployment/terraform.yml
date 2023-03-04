@@ -21,6 +21,7 @@ stages:
     displayName: Authenticate to Azure
     steps:
     - task: Bash@3
+      displayName: Authentication to Azure
       inputs:
         targetType: 'inline'
         script: |
@@ -34,6 +35,7 @@ stages:
     displayName: Terraform Init and Plan
     steps:
     - task: Bash@3
+      displayName: Terraform init and plan
       inputs:
         targetType: 'inline'
         script: |
