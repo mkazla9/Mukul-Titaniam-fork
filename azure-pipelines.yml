@@ -8,7 +8,7 @@ trigger:
 
 pool: Titaniam
 
-variables:
+parameters:
   - name: ipAddress
 
 stages:
