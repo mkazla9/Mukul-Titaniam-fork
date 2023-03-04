@@ -11,4 +11,4 @@ EXPOSE 8080:8080
 USER 1001
 
 # Entry point for Application
-RUN java -jar myproject-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "./myproject-0.0.1-SNAPSHOT.jar"]
