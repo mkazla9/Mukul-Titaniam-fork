@@ -3,7 +3,7 @@
 This project covers on following topics
 1. CI via Azure Devops
 2. Resource creation via Terraform
-3. CD via Terraform
+3. CD via Azure Devops
 
 ## CI
 This section contains two major units
@@ -58,25 +58,40 @@ ENTRYPOINT ["java", "-jar", "./myproject-0.0.1-SNAPSHOT.jar"]
 ```
 
 ## Infrastructure creation
-Since it is a one time job, I have intentionally added the infrastructure creation job in the pipeline only
-. This step is done using terraform where we are creating multiple resources like Vnets, subnet, VM, LB and public ip address. 
+This is a seperate pipeline which is responsible for creation on underlying infrastructure. 
+[pipeline](https://dev.azure.com/mkazla9/Mukul-Titaniam/_build?definitionId=3&_a=summary)
 
+This has two sections
+#### 1. Modules [Modules](https://github.com/mkazla9/Mukul-Titaniam-fork/tree/master/Deployment/tf-modules)
+They are re-usable and can be added multiple times into different repos
+#### 2. Actual infra TF files [Files](https://github.com/mkazla9/Mukul-Titaniam-fork/tree/master/Deployment/terraform-infra)
+This section is using the re-usable modules to create the infrastructure. 
 
+## CD
+This section is included in the same yaml file, these steps are done using azure devops steps only.
 
-
-
-
-
-
-
-
-
-
-
-
-
+```
+- stage: DeployDocker
+  displayName: Deploy jar file to virtual machine
+  jobs:
+  - job: Deployment
+    displayName: deploy docker
+    steps:
+      - task: Bash@3
+        displayName: Upload docker file to machine
+        inputs:
+          targetType: 'inline'
+          script: 'docker save -o helloworld.tar helloworld:v1'
+      - task: Bash@3
+        displayName: Upload file to destination
+        inputs:
+          targetType: 'inline'
+          script: 'ssh ssh adminuser@20.124.218.57 tar czf - helloworld.tar > /tmp/helloworld.tar;'
+```
 
 ## Assumptions/considerations
 
 1. While creating the VM via terraform, I have used the local SSH key instead of creating one via TF, In case
 if you are testing the module, please create a SSH key with name ~/.ssh/id_rsa.pub
+2. You need to run Terraform pipeline first so that infra is created first and then some additions are needed in pipeline variables so that the correct VM is picked
+up. 
