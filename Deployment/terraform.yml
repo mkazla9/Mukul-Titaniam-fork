@@ -54,7 +54,7 @@ stages:
           deploy:
             steps:  
             - task: Bash@3
-              displayName: Terraform init and plan
+              displayName: Terraform init and apply
               inputs:
                 targetType: 'inline'
                 script: |
