@@ -56,5 +56,5 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            ssh adminuser@${{ parameters.ipAddress }} "docker load < /tmp/helloworld.tar && docker run -it -p 8080:8080 helloworld:v1 &"
+            ssh adminuser@${{ parameters.ipAddress }} "docker load < /tmp/helloworld.tar && docker run -d -p 8080:8080 helloworld:v1 &"
 
