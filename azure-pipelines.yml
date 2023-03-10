@@ -50,7 +50,7 @@ stages:
         displayName: Upload file to destination
         inputs:
           targetType: 'inline'
-          script: 'yes | scp helloworld.tar adminuser@${{ parameters.ipAddress }}:/tmp;'
+          script: 'scp -o StrictHostKeyChecking=no helloworld.tar adminuser@${{ parameters.ipAddress }}:/tmp;'
       - task: Bash@3
         displayName: Deploy docker
         inputs:
